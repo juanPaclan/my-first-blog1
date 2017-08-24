@@ -1,0 +1,25 @@
+{%load static%}
+<html>
+  <head>
+    <title>Lista de libros</title>
+  </head>
+  <body>
+  <h1>Lista de libros</h1>
+  <div>
+    <p>Libros totales: {{ lista_objetos|length }}.</p>
+    <table>
+    {% for lista in lista_objetos %}
+    <tr>
+      <td>{{ lista.titulo }}</td>
+      <td>
+        {%for x in lista.autores.all%}
+          <li> {{x}}</li>
+        {%endfor%}
+        </td>
+      <td><img src="{{MEDIA_ROOT}}portadas/bocinas.png" ></td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+.elemento4
+  +contenedor(row, null, center, center, 960px, null)
+  margin: 20px auto 80px auto
+  //@import "sass/_cuerpoNota"
+  .section
+    +tama(70%, null)
+    +contenedor(column, null, center, center, null, null)
+    margin: 0px
+    #imagent
+      +tama(50%, 50%)
+      margin: 0px auto
+  //cuerpo nota
+  .cuerpoNot
+    +contenedor(row, wrap, center, center, null, null)
+    +tama(30%, null)
+    .caja1
+      +contenedor(row, wrap, center, center, null, null)
+      +tama(90%, null)
+      transform: rotate(20deg)
+      +decoration-a($Csecundario, $Cprimario)
+      box-shadow: 5px 5px 1px $Cprimario
+      border-radius: 5px 80px 15px 80px
+      margin: 30px 0px -10px 0px
+      #nota
+        +contenedor(row, wrap, center, center, null, null)
+        +tama(70%, null)
+        text-align: center
+        transform: rotate(-20deg)
+        margin: 30px 0px
+        #textnota
+          margin: 0px
+          padding: 3px
+          font-size: 16px
+          color: $Cprimario
+          text-shadow: -1px 1px 2px $Cterciario
+        .part2
+          +contenedor(row, wrap, center, center, null, null)
+          +tama(100%, 30%)
+          color: $Cterciario
+          text-shadow: -1px 1px 3px $Cfondo
+          margin: -20px
+        .part1
+          +contenedor(row, wrap, center, center, null, null)
+          +tama(100%, 80%)
+          margin: -20px 0px 20px 0px
+          .imagen2
+            margin: 0px 0px -18px 0px
+            padding: 0px
+            +tama(180%, 110%)
+            border-radius: 5px 5px 5px 5px

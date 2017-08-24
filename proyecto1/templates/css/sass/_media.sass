@@ -1,0 +1,186 @@
+@media screen and ($max: 888px)
+  //tamano del carrusel
+  .elemento1
+    //border-radius: 5px 80px 5px 8px
+  .ruleta
+    +contenedor(row, null, space-between, space-between, 888px, null)
+    .formaR
+      #img4
+        +tama(150px, 150px)
+      #img3
+        +tama(150px, 150px)
+      #img2
+        +tama(150px, 150px)
+      #img
+        +tama(150px, 150px)
+        +movimiento(0px, 715px)
+  .elemento4
+    .cuerpoNot
+      .caja1
+        #nota
+          +contenedor(column, wrap, center, center, null, null)
+          .part2
+            align-self: center
+            +margen(0px, 0px)
+          .part1
+            align-self: center
+            +margen(0px, 0px)
+            .imagen2
+              +margen(0px, 0px)
+@media screen and ($max: 768px)
+  body
+    +margen(0px, 0px)
+  //forma de heder
+  .elemento1
+    border-radius: 5px 5px 5px 5px
+    .imagen
+      margin: 10px, 0px, 10px, 0px
+    .menu
+      margin: 10px, 0px, 10px, 0px
+  .ruleta
+    margin: 10px 10px
+  .elemento4
+    +contenedor(column, wrap, center, center, 768px, null)
+    margin: 20px auto 0px auto
+    .section
+      margin: 0px auto
+    .cuerpoNot
+      //+contenedor(null, null, center, space-around, 100%, null)
+      +tama(100%, null)
+      margin: 30px 0px
+      .caja1
+        +tama(30%, null)
+        +contenedor(column, null, center, space-around, null, null)
+        +margen(0px, 0px)
+        #nota
+          +contenedor(column, wrap, center, center, null, null)
+          +margen(3px, 3px)
+          #textnota
+            font-size: 14px
+          .part1
+            margin: 0px
+            .imagen2
+              margin: 0px
+              +tama(80%, 80%)
+  .elemento3
+    +margen(0px, 0px)
+    +tama(100%, 60px)
+    border-radius: 3px 3px 3px 3px
+
+@media screen and ($max: 662px)
+  .ruleta
+    +contenedor(row, null, space-between, center, 662px, null)
+    .formaR
+      margin: 10px
+      #img4
+        +tama(100px, 100px)
+      #img3
+        +tama(100px, 100px)
+      #img2
+        +tama(100px, 100px)
+      #img
+        +tama(100px, 100px)
+        +movimiento(0px, 550px)
+  .elemento2
+    margin: 0px
+    .contenImagen
+      +tama(50%, 320px)
+  .elemento4 , .muestraE
+    .cuerpoNot
+      .caja1
+        #nota
+          #textnota
+            font-size: 12px
+  .elemento4
+    .section
+      #imagent
+        margin: 30px
+@media screen and ($max: 600px)
+  .muestraE
+    .cuerpoNot
+      .caja1
+        #nota
+          #textnota
+            font-size: 10px
+@media screen and ($max: 480px)
+  body
+    margin: 0px
+  .elemento1
+    +tama(96%, 20%)
+    margin: 0px ,1px, 0px, 1px
+    +flex-caja(column, wrap, center, center)
+    //border-radius: 5px 80px 5px 8px
+    //box-sizing: border-box
+    .imagen
+      +tama(90%, 80%)
+    .titulo
+      +tama(100%, 34%)
+      font-size: 25px
+      margin: 20px 0px
+      padding: 0px
+      text-aline: center
+    .menu
+      +tama(100%, null)
+      +flex-caja(column, wrap, center, center)
+      #menu
+        margin: 0.1px, 0px, 0px, 0px
+        text-aline: center
+        +elemento-flex(center)
+        +tama(100%, null)
+        border-radius: 5px 5px 5px 5px
+        &:hover
+          border-radius: 5px 5px 5px 5px
+  .ruleta
+    +contenedor(column, wrap, center, center, 480px, null)
+    .formaR
+      +contenedor(row, null, center, null, 60%, 100%)
+      margin: 10px
+      #img4
+        +tama(200px, 200px)
+      #img3
+        +tama(200px, 200px)
+      #img2
+        +tama(200px, 200px)
+      #img
+        +tama(200px, 200px)
+        +movimiento(0px, 850px)
+  .elemento4, .muestraE
+    .section
+      margin: auto
+      #imagent
+        margin: 0px
+    .cuerpoNot
+      display: none
+  .elemento2
+    +contenedor(column, wrap, center, center, 480px, null)
+    .contenImagen
+      +tama(80%, 320px)
+
+@media screen and ($max: 360px)
+  .elemento1
+    +tama(null, 20%)
+    margin: 0px ,1px, 0px, 1px
+  .ruleta
+    +contenedor(column, wrap, center, center, 320px, null)
+    margin: 15px
+    .formaR
+      +contenedor(row, null, center, null, 100%, 100%)
+      margin: 10px
+      #img4
+        +tama(200px, 200px)
+      #img3
+        +tama(200px, 200px)
+      #img2
+        +tama(200px, 200px)
+      #img
+        +tama(200px, 200px)
+        +movimiento(0px, 850px)
+  .elemento4
+    margin: 0px
+    .section
+      +tama(100%, null)
+      background: $Cprimario
+      padding: 0px
+      #imagent
+        +tama(200px, 200px)
+        margin: 10px

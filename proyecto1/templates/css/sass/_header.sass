@@ -1,0 +1,33 @@
+.elemento1
+  +tama(null, 20%)
+  background: $Csecundario
+  border-radius: 5px 80px 5px 80px
+  padding: 7px
+  +flex
+  +flex-caja(row, wrap, center, space-between)
+  //box-shadow: 5px -0px 0px $Cprimario
+  .imagen
+    border-radius: 5px 80px 50px 70px
+    +tama-peque
+    +tama(26%, 20%)
+    align-self: center
+    flex: 1 1
+    box-shadow: -5px 5px 7px $Csecundario
+  .titulo
+    text-shadow: 3px 3px 0px $Csecundario
+    color: $Cprimario
+    text-align: center
+    +elemento-flex(center)
+    +margen(3px, 5px)
+    +tama(34%, 20%)
+  .menu
+    +flex
+    +elemento-flex(flex-end)
+    +tama(40%, null)
+    #menu
+      +elemento-flex(center)
+      text-align: center
+      //1EM EN NUlo
+      +boton1($Cterciario, $Cprimario)
+      &:hover
+        +boton1($Cprimario, $Cterciario)

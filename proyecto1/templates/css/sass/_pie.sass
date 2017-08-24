@@ -1,0 +1,15 @@
+.elemento3
+  +flex
+  +flex-caja(row, wrap, center, center)
+  background: $Csecundario
+  +tama(null, 60px)
+  border-radius: 20px 100px 20px 100px
+  +margen(10px, 10px)
+  #pie
+    +boton1($Cprimario, $Csecundario)
+    align-self: center
+    text-shadow: 1px 1px 0px $Csecundario
+    &:hover
+      +boton1($Csecundario, $Cprimario)
+      align-self: center
+      text-shadow: 1px 1px 0px $Cprimario

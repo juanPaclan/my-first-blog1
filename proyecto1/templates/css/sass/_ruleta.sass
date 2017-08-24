@@ -1,0 +1,30 @@
+.ruleta
+  +contenedor(row, null, space-between, space-between, 960px, null)
+  margin: 10px auto
+  .formaR
+    margin: 0px
+    padding: 0px
+    +contenedor(row, null, center, null, 100%/3.5, 100%)
+    position: relative
+    overflow: hidden
+    box-sizing:content-box
+    +borde2(1px, $Cprimario, 10px, 10px, 10px, 10px)
+    box-shadow: 5px 5px 2px $Cprimario
+    #img4
+      +tama(200px, 200px)
+      +animacion(10s)
+      //+movimiento(0px, 100px)
+    #img3
+      +tama(200px, 200px)
+      +animacion(10s)
+      //+movimiento(0px, 500px)
+    #img2
+      flex: auto
+      +tama(200px, 200px)
+      +animacion(10s)
+      //+movimiento(0px, 700px)
+    #img
+      flex: auto
+      +tama(200px, 200px)
+      +animacion(10s)
+      +movimiento(0px, 850px)

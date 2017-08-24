@@ -1,0 +1,68 @@
+= tama-peque()
+  min-width: 150px
+  min-height: 110px
+= tama($ancho, $alto)
+  width: $ancho
+  height: $alto
+= tama-gran($ancho, $alto)
+  max-width: $ancho
+  max-height: $alto
+= decoration-a($fondo, $color)
+  text-decoration: none
+  background: $fondo
+  color: $color
+= flex()
+  display: -webkit-flex
+  display: -ms-flexbox
+  display: flex
+= flex-caja($direction, $tamaC, $aliniaC, $justifyC)
+  flex-direction: $direction
+  flex-wrap: $tamaC
+  align-content: $aliniaC
+  justify-content: $justifyC
+= elemento-flex($posicion)
+  align-self: $posicion
+  flex: 1 1
+= borde($tama, $radio)
+  border: $tama solid
+  border-radius: $radio
+= margen($margin, $padding)
+  margin: $margin
+  padding: $padding
+= boton1($color1, $color2)
+  +decoration-a($color1, $color2)
+  border-radius: 5px 20px 5px 20px
+  +borde(1px, null)
+  +margen(3px, 5px)
+= contenedor($row, $wrap, $center, $center2, $ancho, $alto)
+  +flex
+  +flex-caja($row, $wrap, $center, $center2)
+  +tama-gran($ancho, $alto)
+= borde2($tama, $color, $izsup, $dersup, $derinf, $izinf)
+  border: $tama solid $color
+  border-radius: $izsup $dersup $derinf $izinf
+= animacion($tiempo)
+  animation-name: ruleta
+  position: relative
+  animation-duration: $tiempo
+  animation-iteration-count: infinite
+  animation-direction:  alternate
+  animation-timing-function:  linear
+= movimiento($inicio, $final)
+  @keyframes ruleta
+    0%
+      right: 0px
+    20%
+      right: 0px
+    25%
+      right: $final - ($final/3) - ($final/3)
+    45%
+      right: $final - ($final/3) - ($final/3)
+    50%
+      right: $final - ($final/3)
+    70%
+      right: $final - ($final/3)
+    75%
+      right: $final
+    100%
+      right: $final

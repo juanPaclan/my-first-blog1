@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Lista de libros</title>
+  </head>
+  <body>
+  <h1>Lista de libros</h1>
+  <div>
+    <p>Editoriales totales: {{ lista_objetos|length }}.</p>
+    <table>
+    {% for lista in lista_objetos %}
+    <tr>
+      <td>{{ lista.nombre }}</td>
+      <td>{{ lista.domicilio }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+@import "sass/_variables"
+@import "sass/_mixi"
+@import "sass/_header"
+@import "sass/_pie"
+@import "sass/_cajaImagen"
+@import "sass/_ruleta"
+@import "sass/_index"
+@import "sass/_muestraE"
+$max: max-width
+$min: min-width
+//contenedor principal body
+
+.formato
+  color: $Cterciario
+  text-shadow: 10px 5px 3px $Cprimario
+  text-align: center
+.contenedor
+  +flex
+  +flex-caja(column, null, center, center)
+  background: $Cprimario
+  max-width: 1100px
+  margin: 0 auto
+//boton
+#boton
+  margin: 10px 10px
+  +boton1($Cprimario, $Cterciario)
+  &:hover
+    +boton1($Csecundario, $Cprimario)
+body
+  background: $Cfondo
+
+@import "sass/_media"
