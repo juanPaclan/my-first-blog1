@@ -5,74 +5,19 @@
 
 <div class="ruleta">
   <!--ruleta de computadoras       -->
+
+  {%for dato in datos %}
   <div class="formaR">
+    {% for x in dato%}
     <figure>
-      <a href="html/compu.html">
-      <img src="{% static 'imagen/imagen5.jpg'%}" id="img" />
+      <a href="{% url 'desc_arti' tipo=x.modelo %}">
+      <img src="../../../media/{{x.imagen}}" id="img" />
     </a>
     </figure>
-    <figure>
-      <a href="html/compu.html">
-      <img src="{% static 'imagen/compu4.jpg'%}" id="img2" />
-    </a>
-    </figure>
-    <figure>
-      <a href="html/compu.html">
-      <img src="{% static 'imagen/compu5.jpeg'%}" id="img3" />
-    </a>
-    </figure>
-    <figure>
-      <a href="html/compu.html">
-      <img src="{% static 'imagen/images10.jpeg'%}" id="img4" />
-    </a>
-    </figure>
+    {%endfor%}
   </div>
-  <!--ruleta de celulares -->
-  <div class="formaR">
-    <figure>
-      <a href="html/cel.html">
-          <img src="{% static 'imagen/cel2.jpeg'%}" id="img" />
-        </a>
-    </figure>
-    <figure>
-      <a href="html/cel.html">
-          <img src="{% static 'imagen/cel1.jpeg'%}" id="img2" />
-        </a>
-    </figure>
-    <figure>
-      <a href="html/cel.html">
-          <img src="{% static 'imagen/K10.jpg'%}" id="img3" />
-        </a>
-    </figure>
-    <figure>
-      <a href="html/cel.html">
-          <img src="{% static 'imagen/cel5.jpeg'%}" id="img4" />
-        </a>
-    </figure>
-  </div>
-  <!--  ruleta de tables    -->
-  <div class="formaR">
-    <figure>
-      <a href="html/table.html">
-              <img src="{% static 'imagen/tablep.jpg'%}" id="img" />
-            </a>
-    </figure>
-    <figure>
-      <a href="html/table.html">
-              <img src="{% static 'imagen/carucel.jpeg'%}" id="img2" />
-            </a>
-    </figure>
-    <figure>
-      <a href="html/table.html">
-              <img src="{% static 'imagen/table5.jpeg'%}" id="img3" />
-            </a>
-    </figure>
-    <figure>
-      <a href="html/table.html">
-              <img src="{% static 'imagen/table1.jpg'%}" id="img4" />
-            </a>
-    </figure>
-  </div>
+  {%endfor%}
+
 
 </div>
 
