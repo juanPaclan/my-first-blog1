@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Ventas de Celulares {% endblock %}
+{% block content %}
+
+<p>
+{% for dato in datos_articulos %}
+<li> {{dato}}</li>
+
+
+{%endfor%}
+
+</p>
+
+{% endblock %}

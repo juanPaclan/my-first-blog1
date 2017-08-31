@@ -1,23 +1,107 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %}Ventas de equipos de computo {% endblock %}
 {% block content %}
-  <section>
 
-    <hgroup>
-    <h1> Lo mejor en tecnologia lo encotraras aqui </h1>
-    <h3>Computadoras, celulares y tables estan a tu disposicon animate</h3>
-    </hgroup>
-    <figure><img src="imagen/images11.jpeg" id="imagent"/></figure>
-    <figcaption> <h3>Las mejoes ofertas y lo mas moderno</h3></figcaption>
-   </section>
-  <aside>
-    <a id="nota"><blockquote><em id="textnota"><b>Compras los mejores equipos de computos aqui</b></em></blockquote></a>
-    <a id="nota"><blockquote> <b id="textnota">Nesecitas un <em>celular</em> aqui tenemos las mejores ofertas</b></blockquote></a>
-    <a id="nota" href="html/compu.html"><blockquote>
-      <img src="imagen/bosina.jpg" class="imagen2" />Bosinas <em><b>Gratis</b></em>
-    </blockquote></a>
-    <a id="nota" href="html/cel.html"><blockquote >
-      <img src="imagen/audio.jpeg" class="imagen2"/>Llebatelos de <strong><em>Regalo</em></strong>
-    </blockquote></a>
+<div class="ruleta">
+  <!--ruleta de computadoras       -->
+  <div class="formaR">
+    <figure>
+      <a href="html/compu.html">
+      <img src="{% static 'imagen/imagen5.jpg'%}" id="img" />
+    </a>
+    </figure>
+    <figure>
+      <a href="html/compu.html">
+      <img src="{% static 'imagen/compu4.jpg'%}" id="img2" />
+    </a>
+    </figure>
+    <figure>
+      <a href="html/compu.html">
+      <img src="{% static 'imagen/compu5.jpeg'%}" id="img3" />
+    </a>
+    </figure>
+    <figure>
+      <a href="html/compu.html">
+      <img src="{% static 'imagen/images10.jpeg'%}" id="img4" />
+    </a>
+    </figure>
+  </div>
+  <!--ruleta de celulares -->
+  <div class="formaR">
+    <figure>
+      <a href="html/cel.html">
+          <img src="{% static 'imagen/cel2.jpeg'%}" id="img" />
+        </a>
+    </figure>
+    <figure>
+      <a href="html/cel.html">
+          <img src="{% static 'imagen/cel1.jpeg'%}" id="img2" />
+        </a>
+    </figure>
+    <figure>
+      <a href="html/cel.html">
+          <img src="{% static 'imagen/K10.jpg'%}" id="img3" />
+        </a>
+    </figure>
+    <figure>
+      <a href="html/cel.html">
+          <img src="{% static 'imagen/cel5.jpeg'%}" id="img4" />
+        </a>
+    </figure>
+  </div>
+  <!--  ruleta de tables    -->
+  <div class="formaR">
+    <figure>
+      <a href="html/table.html">
+              <img src="{% static 'imagen/tablep.jpg'%}" id="img" />
+            </a>
+    </figure>
+    <figure>
+      <a href="html/table.html">
+              <img src="{% static 'imagen/carucel.jpeg'%}" id="img2" />
+            </a>
+    </figure>
+    <figure>
+      <a href="html/table.html">
+              <img src="{% static 'imagen/table5.jpeg'%}" id="img3" />
+            </a>
+    </figure>
+    <figure>
+      <a href="html/table.html">
+              <img src="{% static 'imagen/table1.jpg'%}" id="img4" />
+            </a>
+    </figure>
+  </div>
+
+</div>
+
+<div class="elemento4">
+
+  <aside class="cuerpoNot">
+    <a class="caja1" href="html/compu.html">
+      <blockquote id="nota">
+        <b id="textnota">Nesecitas una <em>COMPUTADORA</em> aqui encontraras las mejores ofertas</b>
+      </blockquote>
+    </a>
+    <a class="caja1" href="html/cel.html">
+      <blockquote id="nota">
+        <b id="textnota">Nesecitas un <em>celular</em> aqui tenemos las mejores ofertas</b>
+      </blockquote>
+    </a>
+
+
   </aside>
+  <section class="section">
+    <hgroup>
+      <h1 class="formato"> Lo mejor en tecnologia lo encotraras aqui </h1>
+      <h3 class="formato">Computadoras, celulares y tables estan a tu disposicon animate</h3>
+    </hgroup>
+    <figure id="imagent"><img src="{% static 'imagen/images11.jpeg'%}" /></figure>
+    <figcaption>
+      <h3 class="formato">Las mejoes ofertas y lo mas moderno</h3></figcaption>
+  </section>
+
+</div>
+
 {% endblock %}

@@ -1,19 +1,16 @@
-<!DOCTYPE html>
+{% load staticfiles %}
 <html lang="es">
 
 <head>
-  <meta charset="iso-8859-1"/>
-  <link rel="stylesheet" href="css/css.css" />
+  <meta charset="iso-8859-1" />
+  <link rel="stylesheet" href="{% static 'css/main.css'%}" />
   <title>Home</title>
 </head>
 
-<body class="contenedor">
+<body>
+  <!--menu  -->
   <header class="elemento1">
-
-    <div id="im">
-      <img src="imagen/imagen1.jpg" class="imagen" />
-
-    </div>
+    <img src="{% static 'imagen/imagen1.jpg'%}" class="imagen" />
     <h1 class="titulo">{% block title %}{% endblock %}</h1>
     <nav class="menu">
       <a id="menu" href="index.html">Inicio</a>
@@ -21,16 +18,10 @@
       <a id="menu" href="html/cel.html">Celulares</a>
       <a id="menu" href="html/table.html">Tables</a>
     </nav>
-
-
   </header>
-  <div class="imagent">
-    <a href="html/compu.html"><img src="imagen/compu.jpg" id="imagent"/></a><a href="html/cel.html"><img src="imagen/cel.jpeg" id="imagent"/></a>
-    <a href="html/compu.html"><img src="imagen/compu1.jpg" id="imagent"/></a><a href="html/table.html"><img src="imagen/table5.jpeg"id="imagent"/></a>
-  </div>
-  <div class="elemento2">
+
   {% block content %}{% endblock %}
-  </div>
+
 
   <div class="elemento3">
     <a href="https://es-la.facebook.com/onlinetecnologia1/" id="pie">Facebook</a>
@@ -38,4 +29,5 @@
 
   </div>
 </body>
+
 </html>
