@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} {{datos}} {% endblock %}
+{% block content %}
+
+<div class="muestraE">
+
+  <section class="section">
+{% for dato in desc_datos %}
+
+      <h1 class="formato"> {{dato.marca}} </h1>
+    <figure id="imagent">
+      <img class="tama" src="../../../media/{{dato.imagen}}" />
+    </figure>
+      <h3 class="formato"><b> Precio: {{dato.precio}}</b> </h3>
+      <h3 class="formato"><b> caracteristicas</b> </h3>
+      <div class="parraf">
+      <p>
+      {{dato.descripcion}}
+      </p>
+</div>
+{% endfor %}
+  </section>
+</div>
+
+{% endblock %}

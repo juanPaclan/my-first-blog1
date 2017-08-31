@@ -13,10 +13,10 @@
     <img src="{% static 'imagen/imagen1.jpg'%}" class="imagen" />
     <h1 class="titulo">{% block title %}{% endblock %}</h1>
     <nav class="menu">
-      <a id="menu" href="index.html">Inicio</a>
-      <a id="menu" href="html/compu.html">Computadoras</a>
-      <a id="menu" href="html/cel.html">Celulares</a>
-      <a id="menu" href="html/table.html">Tables</a>
+      <a id="menu" href="{% url 'index' %}">Inicio</a>
+      <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
+      <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>
+      <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
     </nav>
   </header>
 

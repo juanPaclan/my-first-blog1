@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}Ventas de Celulares {% endblock %}
+{% block title %}
+  Ventas de {{datos}}
+{% endblock %}
 {% block content %}
 
-<p>
-{% for dato in datos_articulos %}
-<li> {{dato}}</li>
+<div class="elemento2">
+  {% for dato in datos_articulos %}
+  <div class="contenImagen">
+    <h3>{{dato.modelo}}</h3>
+    <img src="../../../media/{{dato.imagen}}" class="imagen1"  />
+    <div class="botonC"> <a id="boton" href="{% url 'desc_arti' tipo=dato.modelo %}">description</a>
+      <a id="boton">Compra</a></div>
+  </div>
+  {%endfor%}
 
-
-{%endfor%}
-
-</p>
+</div>
 
 {% endblock %}
