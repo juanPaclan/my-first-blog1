@@ -17,6 +17,8 @@ class Articulo(models.Model):
         return '%s %s %s %s %s %s' % (self.producto, self.marca, self.modelo,self.precio, self.descripcion, self.imagen)
 
 class Cliente(models.Model):
+    usuario = models.CharField(max_length=10)
+    password= models.CharField(max_length=10)
     nombre = models.CharField(max_length=20)
     apellidos = models.CharField(max_length=20)
     direccion = models.CharField(max_length= 30)

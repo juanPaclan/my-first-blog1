@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} Datos de de Usuario {{nombre}} {% endblock %}
+{% block content %}
+
+<div class="muestraE">
+
+  <section class="section">
+
+
+      <h1 class="formato">Nombre: {{datos.nombre}} {{datos.apellidos}} </h1>
+      <h3 class="formato"><b>Direccion:</b> {{datos.direccion}} </h3>
+      <h3 class="formato"><b> Telefono:</b>{{datos.telefono}} </h3>
+        <h3 class="formato"><b> E-mail:</b>{{datos.email}} </h3>
+
+
+  </section>
+</div>
+
+{% endblock %}
