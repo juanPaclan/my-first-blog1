@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block url%}
+<a id="menu" href="{% url 'index' %}">Inicio</a>
+{% endblock %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<center>
+<a id="menu" href="{% url 'cli_new' %}">Registro</a>
+</center>
+  <div class="elemento2">
+  <form method="post" >{% csrf_token %}
+    {{ form.as_p}}
+    <button type="submit" >Save</button>
+    {% if form.errors %}
+      <p>Su nombre de usuario y password no coinciden </p>
+    {% endif%}
+  </form>
+</div>
+{% endblock %}

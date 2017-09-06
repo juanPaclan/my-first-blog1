@@ -37,12 +37,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_jwt',
+    'rest_auth',
+    #########
+    'django.contrib.sites',
+#    'allauth',
+#    'allauth.account',
+    'rest_auth.registration',
     'blog',
     'prueba',
     'proyecto1',
     'biblioteca',
     'contactos',
 ]
+SITE_ID = 1
+#se agraga adicional para configurar token
+REST_FRAMEWORK = {
+     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+#configuracion de seguridad de rest framework
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

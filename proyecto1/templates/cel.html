@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block url%}
+<a id="menu" href="{% url 'index' %}">Inicio</a>
+{% endblock %}
 {% block title %}
   Ventas de {{datos}}
 {% endblock %}
@@ -11,7 +14,10 @@
     <h3>{{dato.modelo}}</h3>
     <img src="../../../media/{{dato.imagen}}" class="imagen1"  />
     <div class="botonC"> <a id="boton" href="{% url 'desc_arti' tipo=dato.modelo %}">description</a>
-      <a id="boton">Compra</a></div>
+    {% if accesos%}
+    <a id="boton">Compra</a>
+    {% endif%}
+    </div>
   </div>
   {%endfor%}
 

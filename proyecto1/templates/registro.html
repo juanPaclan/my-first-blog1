@@ -1,9 +1,15 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block url%}
+<a id="menu" href="{% url 'index' %}">Inicio</a>
+{% endblock %}
 {% block title %} Datos de de Usuario {% endblock %}
 {% block content %}
-  <h1> New Usuario</h1>
-  <form method="POST" >{% csrf_token %}
+
+  <div class="elemento2">
+  <form method="post" >{% csrf_token %}
     {{ form.as_p}}
     <button type="submit" >Save</button>
   </form>
+</div>
 {% endblock %}

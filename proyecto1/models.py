@@ -29,7 +29,7 @@ class Cliente(models.Model):
         ordering = ['nombre']
 
     def __str__(self):
-        return '%s %s %s' % (self.nombre, self.apellidos, self.email)
+        return '%s %s %s %s %s' % (self.usuario,self.password, self.nombre, self.apellidos, self.email)
 
 class Venta(models.Model):
     fecha = models.DateField()
