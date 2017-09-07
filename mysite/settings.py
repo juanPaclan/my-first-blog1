@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'accounts',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_jwt',
@@ -55,7 +56,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 #se agraga adicional para configurar token
 REST_FRAMEWORK = {
-     'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }

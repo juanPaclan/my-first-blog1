@@ -13,6 +13,11 @@
     <img src="{% static 'imagen/imagen1.jpg'%}" class="imagen" />
     <h1 class="titulo">{% block title %}{% endblock %}</h1>
     <nav class="menu">
+      {%if request.user.is_authenticated %}
+        <a id="menu" href="{% url 'logout_view'%}">Cerrar S</a>
+      {% else %}
+      {% block url2 %}{% endblock %}  
+      {% endif %}
       {% block url %}{% endblock %}
       <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
       <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>

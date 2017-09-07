@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block url%}
+{% block url2 %}
 <a id="menu" href="{% url 'login' %}">Login</a>
-{% endblock %}
+{% endblock%}
 {% block title %}Ventas de equipos de computo {% endblock %}
 {% block content %}
 
@@ -26,10 +26,10 @@
 
 <div class="elemento4">
   <aside class="cuerpoNot">
-    {%if accesos %}
+    {%if request.user.is_authenticated %}
     <a class="caja1" href="html/compu.html">
       <blockquote id="nota">
-        <b id="textnota">Bienvenido, {{accesos.username}}</b>
+        <b id="textnota">Bienvenido, {{user.username}}.</b>
       </blockquote>
     </a>
     {% endif %}

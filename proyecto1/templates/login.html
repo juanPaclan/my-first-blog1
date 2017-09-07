@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+
 {% block url%}
 <a id="menu" href="{% url 'index' %}">Inicio</a>
+<a id="menu" href="{% url 'cli_new' %}">Registro</a>
 {% endblock %}
 {% block title %} Login {% endblock %}
 {% block content %}
-<center>
-<a id="menu" href="{% url 'cli_new' %}">Registro</a>
-</center>
+
   <div class="elemento2">
   <form method="post" >{% csrf_token %}
     {{ form.as_p}}

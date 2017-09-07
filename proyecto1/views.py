@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from django.template import RequestContext
 from django.http import HttpResponse, Http404
 from proyecto1.models import Articulo, Cliente
 from .forms import CliForm, LoginForm
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate,logout, login as django_login
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.decorators import login_required
+#from django.template import RequestContext
 
 
 # Create your views here.
@@ -15,6 +17,8 @@ def pro1(request):
     articulo2 = Articulo.objects.filter(producto='TABLET').order_by('?')[:4]
     dato = [articulo,articulo1, articulo2]
     return render(request, 'index.html',{ 'datos':dato})
+
+
 def articulo(request, model, tipo):
     datos_articulo = model.objects.filter(producto=tipo)
     dato = tipo.lower()
@@ -24,7 +28,12 @@ def desc_arti(request,model, tipo):
     dato = tipo
     return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
 ########################################
-
+@login_required
+def compra_articulo(request):
+    return False
+def logout_view(request):
+    logout(request)
+    return render(request, 'index.html' )
 def login(request):
     form = LoginForm(request.POST or None)
     if form.is_valid():
@@ -33,10 +42,14 @@ def login(request):
         password_usuario = data.get("password_user")
         acceso= authenticate(username=nombre_usuario, password=password_usuario)
         if acceso is not None and acceso.is_active:
-            #login(request, acceso)
-            context = RequestContext(request,{'usuario': nombre_usuario })
+            users = User.objects.filter(username = nombre_usuario)
+            token, created = Token.objects.get_or_create(user=users)
+            print(users, token.key)
+            sesion = request.session['member_id']=token.key
+            django_login(request, acceso)
+        #    context = RequestContext(request,{'usuario': nombre_usuario })
             #t = loader.get_template('index.html')
-            return render(request, 'index.html')
+            return render(request, 'index.html', {'accesos':acceso})
         else:
             return HttpResponse("Usuario /password incorrectos.")
     else:
@@ -44,12 +57,12 @@ def login(request):
     var = { "form":form}
     return render(request, 'login.html', var)
 
-def cli_deta(request, pk):
+def cliente_detalle(request, pk):
     dato = get_object_or_404(Cliente, pk = pk)
     #nombre = dato.usuario
     return render(request, 'cli-date.html', {'datos' : dato})
 
-def cli_new(request):
+def cliente_new(request):
     if request.method == "POST":
         form = CliForm(request.POST)
         if form.is_valid():
