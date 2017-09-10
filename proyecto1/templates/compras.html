@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+  Sus compras
+{% endblock %}
+{% block content %}
+
+<div class="elemento2">
+{% for dato in datos_carritos %}
+  {% for x in dato.articulos.all%}
+  <div class="contenImagen">
+    <h3>{{x.modelo}}</h3>
+    <img src="../../../media/{{x.imagen}}" class="imagen1"  />
+      <div class="botonC"> <a id="boton" href="{% url 'desc_arti' tipo=x.modelo %}">description</a>
+  </div>
+  {%endfor%}
+</div>
+{%endfor%}
+</div>
+
+{% endblock %}

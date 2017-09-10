@@ -32,7 +32,7 @@ class Cliente(models.Model):
         return '%s %s %s %s %s' % (self.usuario,self.password, self.nombre, self.apellidos, self.email)
 
 class Venta(models.Model):
-    fecha = models.DateField()
+    fecha = models.DateField(auto_now_add = True)
     cliente = models.ForeignKey(Cliente)
     articulos = models.ManyToManyField(Articulo)
 

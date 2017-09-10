@@ -15,8 +15,9 @@
     <nav class="menu">
       {%if request.user.is_authenticated %}
         <a id="menu" href="{% url 'logout_view'%}">Cerrar S</a>
+        <a id="menu" href="{% url 'carrito'%}">Compras</a>
       {% else %}
-      {% block url2 %}{% endblock %}  
+      {% block url2 %}{% endblock %}
       {% endif %}
       {% block url %}{% endblock %}
       <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>

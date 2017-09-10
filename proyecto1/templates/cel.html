@@ -15,7 +15,8 @@
     <img src="../../../media/{{dato.imagen}}" class="imagen1"  />
     <div class="botonC"> <a id="boton" href="{% url 'desc_arti' tipo=dato.modelo %}">description</a>
     {%if request.user.is_authenticated %}
-    <a id="boton">Compra</a>
+    
+    <a id="boton" href="{% url 'compra_articulo' id_prod=dato.id %}">Compra</a>
     {% endif%}
     </div>
   </div>

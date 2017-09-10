@@ -1,17 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
-from proyecto1.models import Articulo, Cliente
+from proyecto1.models import Articulo, Cliente, Venta
 from .forms import CliForm, LoginForm
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout, login as django_login
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 #from django.template import RequestContext
 
 
 # Create your views here.
 def pro1(request):
+    url = request.build_absolute_uri()
+    print('>>>>>>>>>>>>>>>'+url)
     articulo = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
     articulo1 = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
     articulo2 = Articulo.objects.filter(producto='TABLET').order_by('?')[:4]
@@ -29,8 +32,26 @@ def desc_arti(request,model, tipo):
     return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
 ########################################
 @login_required
-def compra_articulo(request):
-    return False
+def carrito(request):
+    if request.user.is_authenticated:
+        usuario= Cliente.objects.get(usuario=request.user)
+        datos_carrito = Venta.objects.filter(cliente=usuario)
+        return render(request, 'compras.html',{'datos_carritos': datos_carrito} )
+
+@login_required
+def compra_articulo(request, id_prod):
+    if request.user.is_authenticated:
+        fecha = datetime.now()
+        formato = "%d/%m/%y"
+        dato= fecha.strftime(formato)
+        producto= Articulo.objects.get(id=id_prod)
+        usuario =Cliente.objects.get(usuario=request.user)
+        venta = Venta(fecha=fecha, cliente=usuario)#p)
+        venta.save()
+        venta.articulos.add(producto)
+        venta.save()
+        print(venta)
+    return render(request, 'index.html' )
 def logout_view(request):
     logout(request)
     return render(request, 'index.html' )
