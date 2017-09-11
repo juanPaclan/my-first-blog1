@@ -19,7 +19,7 @@ def pro1(request):
     articulo1 = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
     articulo2 = Articulo.objects.filter(producto='TABLET').order_by('?')[:4]
     dato = [articulo,articulo1, articulo2]
-    return render(request, 'index.html',{ 'datos':dato})
+    return render(request, 'index.html',{ 'rutas':url, 'datos':dato})
 
 
 def articulo(request, model, tipo):
@@ -36,7 +36,12 @@ def carrito(request):
     if request.user.is_authenticated:
         usuario= Cliente.objects.get(usuario=request.user)
         datos_carrito = Venta.objects.filter(cliente=usuario)
-        return render(request, 'compras.html',{'datos_carritos': datos_carrito} )
+        total_venta= datos_carrito.count
+        total=0
+        for datos in datos_carrito:
+            for precio_totales in datos.articulos.all():
+                total+=precio_totales.precio
+        return render(request, 'compras.html',{ 'totales':total,'total_vetas':total_venta ,'datos_carritos': datos_carrito} )
 
 @login_required
 def compra_articulo(request, id_prod):
@@ -79,7 +84,7 @@ def login(request):
     return render(request, 'login.html', var)
 
 def cliente_detalle(request, pk):
-    dato = get_object_or_404(Cliente, pk = pk)
+    dato = get_object_or_404(Cliente, pk =pk)
     #nombre = dato.usuario
     return render(request, 'cli-date.html', {'datos' : dato})
 
@@ -97,7 +102,7 @@ def cliente_new(request):
     return render(request, 'registro.html', {'form': form})
 
 def cli_edit(request, pk):
-     post = get_object_or_404(Post, pk = pk)
+     post = get_object_or_404(Cliente, pk =pk)
      if request.method == "POST":
          form = CliForm(request.POST, instance= post)
          if form.is_valid():

@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'', include('biblioteca.urls')),
     #url(r'', include('contactos.urls')),
     #url(r'^admin/', include('django.contrib.admin.urls')),
-    url(r'^blog', include('blog.urls')),
+    url(r'', include('blog.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

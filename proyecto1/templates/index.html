@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block url2 %}
-<a id="menu" href="{% url 'login' %}">Login</a>
-{% endblock%}
+
 {% block title %}Ventas de equipos de computo {% endblock %}
 {% block content %}
 
@@ -27,18 +25,18 @@
 <div class="elemento4">
   <aside class="cuerpoNot">
     {%if request.user.is_authenticated %}
-    <a class="caja1" href="html/compu.html">
+    <a class="caja1" href="{% url 'cli_edit' pk=user.pk %}">
       <blockquote id="nota">
         <b id="textnota">Bienvenido, {{user.username}}.</b>
       </blockquote>
     </a>
     {% endif %}
-    <a class="caja1" href="html/compu.html">
+    <a class="caja1" href="{% url 'articulo' tipo='COMPUTADORA' %}">
       <blockquote id="nota">
         <b id="textnota">Nesecitas una <em>COMPUTADORA</em> aqui encontraras las mejores ofertas</b>
       </blockquote>
     </a>
-    <a class="caja1" href="html/cel.html">
+    <a class="caja1" href="{% url 'articulo' tipo='COMPUTADORA' %}">
       <blockquote id="nota">
         <b id="textnota">Nesecitas un <em>celular</em> aqui tenemos las mejores ofertas</b>
       </blockquote>

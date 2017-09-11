@@ -4,14 +4,27 @@
   Sus compras
 {% endblock %}
 {% block content %}
-
 <div class="elemento2">
+  <div class="contenImagen">
+  <h3> <center>Datos de Compras:</center> 
+    <br>
+    Numeros de productos: {{total_vetas}}
+    <br>
+      Total de compras: {{totales}}
+  </h3>
+
+</div>
+</div>
+<div class="elemento2">
+
 {% for dato in datos_carritos %}
   {% for x in dato.articulos.all%}
   <div class="contenImagen">
     <h3>{{x.modelo}}</h3>
     <img src="../../../media/{{x.imagen}}" class="imagen1"  />
-      <div class="botonC"> <a id="boton" href="{% url 'desc_arti' tipo=x.modelo %}">description</a>
+      <div class="botonC">
+        <a id="boton" href="{% url 'desc_arti' tipo=x.modelo %}">description</a>
+        <a id="boton" >{{x.precio}}</a>
   </div>
   {%endfor%}
 </div>

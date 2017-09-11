@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^producto/(?P<tipo>[^/]+)/$', desc_arti,{'model': Articulo}, name='desc_arti'),
     url(r'^registro/(?P<pk>[0-9]+)/$', cliente_detalle, name= 'cli_deta'),
     url(r'^producto/(?P<id_prod>[^/]+)/compra/$', compra_articulo, name='compra_articulo'),
-    #url(r'^producto/(?P<pk>[0-9]+)/edit/$', cli_edit, name='cli_edit'),
+    url(r'^producto/(?P<pk>[0-9]+)/edit/$', cli_edit, name='cli_edit'),
 
 
 ]
