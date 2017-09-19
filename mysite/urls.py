@@ -23,13 +23,13 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^router', include(router.urls)),
-    url(r'^rest-auth/',include('rest_auth.urls')),
 #    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+url(r'^rest-auth/',include('rest_auth.urls')),
 #    url(r'^api-token-auth/', obtain_jtw_token),
     url(r'', include('prueba.urls')),
     url(r'', include('proyecto1.urls')),
     url(r'', include('biblioteca.urls')),
     #url(r'', include('contactos.urls')),
     #url(r'^admin/', include('django.contrib.admin.urls')),
-    url(r'', include('blog.urls')),
+    url(r'^blo', include('blog.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
