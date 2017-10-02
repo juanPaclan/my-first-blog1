@@ -1,9 +1,9 @@
 from django.conf.urls import url
-from . import views
+from blog.views import post_list, post_new, post_detail, post_edit
 
 urlpatterns = [
-    url(r'', views.post_list, name= 'post_list'),
-    url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name= 'post_detail'),
-    url(r'^post/new/$', views.post_new, name= 'post_new'),
-    url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_edit, name='post_edit'),
+    url(r'', post_list, name= 'post_list'),
+    url(r'^post/(?P<pk>[0-9]+)/$', post_detail, name= 'post_detail'),
+    url(r'^post/new/$', post_new, name= 'post_new'),
+    url(r'^post/(?P<pk>[0-9]+)/edit/$', post_edit, name='post_edit'),
 ]

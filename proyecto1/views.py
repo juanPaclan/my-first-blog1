@@ -14,7 +14,6 @@ from datetime import datetime
 # Create your views here.
 def pro1(request):
     url = request.build_absolute_uri()
-    print('>>>>>>>>>>>>>>>'+url)
     articulo = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
     articulo1 = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
     articulo2 = Articulo.objects.filter(producto='TABLET').order_by('?')[:4]
@@ -68,14 +67,13 @@ def login(request):
         password_usuario = data.get("password_user")
         acceso= authenticate(username=nombre_usuario, password=password_usuario)
         if acceso is not None and acceso.is_active:
-            users = User.objects.filter(username = nombre_usuario)
-            token, created = Token.objects.get_or_create(user=users)
-            print(users, token.key)
-            sesion = request.session['member_id']=token.key
+        #    users = User.objects.filter(username = nombre_usuario)
+        #    token, created = Token.objects.get_or_create(user=users)
+        #    print(users, token.key)
+        #    sesion = request.session['member_id']=token.key
             django_login(request, acceso)
-        #    context = RequestContext(request,{'usuario': nombre_usuario })
-            #t = loader.get_template('index.html')
             return render(request, 'index.html', {'accesos':acceso})
+            #return redirect('logout_view')
         else:
             return HttpResponse("Usuario /password incorrectos.")
     else:
@@ -85,8 +83,8 @@ def login(request):
 
 def cliente_detalle(request, pk):
     dato = get_object_or_404(Cliente, pk =pk)
-    #nombre = dato.usuario
-    return render(request, 'cli-date.html', {'datos' : dato})
+    nombre = dato.usuario
+    return render(request, 'cli-date.html', { 'nombres':nombre ,'datos' : dato})
 
 def cliente_new(request):
     if request.method == "POST":
@@ -101,14 +99,14 @@ def cliente_new(request):
         form = CliForm()
     return render(request, 'registro.html', {'form': form})
 
-def cli_edit(request, pk):
-     post = get_object_or_404(Cliente, pk =pk)
-     if request.method == "POST":
-         form = CliForm(request.POST, instance= post)
-         if form.is_valid():
-             post = form.save(commit= False)
-             post.save()
-             return redirect('cli_deta', pk= post.pk)
-     else:
-         form = CliForm(instance= post)
-     return render(request, 'regidtro.html', {'form': form})
+def cli_editar(request, users):
+    post = get_object_or_404(Cliente, usuario=users)
+    if request.method == "POST":
+        form = CliForm(request.POST, instance= post)
+        if form.is_valid():
+            post = form.save(commit= False)
+            post.save()
+            return redirect('cli_deta', pk= post.pk)
+    else:
+        form = CliForm(instance= post)
+    return render(request, 'registro.html', {'form': form})

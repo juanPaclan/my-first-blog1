@@ -25,7 +25,7 @@
 <div class="elemento4">
   <aside class="cuerpoNot">
     {%if request.user.is_authenticated %}
-    <a class="caja1" href="{% url 'cli_edit' pk=user.pk %}">
+    <a class="caja1" href="{% url 'cli_edit' users=user.username %}">
       <blockquote id="nota">
         <b id="textnota">Bienvenido, {{user.username}}.</b>
       </blockquote>

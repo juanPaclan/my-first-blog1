@@ -31,5 +31,5 @@ url(r'^rest-auth/',include('rest_auth.urls')),
     url(r'', include('biblioteca.urls')),
     #url(r'', include('contactos.urls')),
     #url(r'^admin/', include('django.contrib.admin.urls')),
-    url(r'^blo', include('blog.urls')),
+#    url(r'', include('blog.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
