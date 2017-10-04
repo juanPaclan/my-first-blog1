@@ -37,17 +37,17 @@
           <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>
           <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
         {% endifequal %}
-        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/COMPUTADORA'%}
+        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/COMPUTADORA/'%}
           <a id="menu" href="{% url 'index' %}">Inicio</a>
           <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>
           <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
         {% endifequal %}
-        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/CELULAR'%}
+        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/CELULAR/'%}
           <a id="menu" href="{% url 'index' %}">Inicio</a>
           <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
           <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
         {% endifequal %}
-        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/TABLET'%}
+        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/TABLET/'%}
           <a id="menu" href="{% url 'index' %}">Inicio</a>
           <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
           <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>

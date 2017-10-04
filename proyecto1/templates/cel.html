@@ -2,7 +2,16 @@
 {% load staticfiles %}
 
 {% block title %}
-  Ventas de {{datos}}
+  {% ifequal datos 'CELULAR' %}
+    Ventas de Celulares
+  {% endifequal%}
+  {% ifequal datos 'COMPUTADORA' %}
+    Ventas de Comptadoras
+  {% endifequal%}
+  {% ifequal datos 'TABLET' %}
+    Ventas de Tablets
+  {% endifequal%}
+
 {% endblock %}
 {% block content %}
 

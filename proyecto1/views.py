@@ -1,3 +1,6 @@
+#nuevo
+from django.views.generic import ListView, DetailView
+#antes
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from proyecto1.models import Articulo, Cliente, Venta
@@ -10,8 +13,48 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 #from django.template import RequestContext
 
+class IndexListView(ListView):
+    """Es el index de la paguina con una lista de articulor """
+    model = Articulo
+    context_object_name = "list_producto"
+    template_name = "index.html"
 
+    def get_queryset(self, *args, **kwargs):
+        articulos = {'CELULAR', 'COMPUTADORA', 'TABLET' }
+        queryset= []
+        for x in articulos:
+            articulo= Articulo.objects.filter(producto=x).order_by('?')[:4]
+            queryset.append(articulo)
+        return queryset
+
+#vista de articulos
+class ArticulosListView(ListView):
+    """Muestra las plantillas de los articulos"""
+    model= Articulo
+    context_object_name = "datos_articulos"
+    template_name = "cel.html"
+    def get_queryset(self, *args, **kwargs):
+        return Articulo.objects.filter(producto= self.kwargs['tipo'])
+    def get_context_data(self, *args, **kwargs):
+        context= super(ArticulosListView, self).get_context_data(**kwargs)
+        context['datos'] = self.kwargs['tipo']
+        return context
+
+class ArticulosDetailView(DetailView):
+    #model: Articulo
+    context_object_name = "desc_datos"
+    template_name = "cel-desc.html"
+    def get_object(self):
+        object= super(ArticulosDetailView, self).get_object()
+        print(object)
+        return object
 # Create your views here.
+def desc_arti(request,model, tipo):
+    desc_dato = model.objects.filter(modelo=tipo)
+    dato = tipo
+    return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
+
+
 def pro1(request):
     url = request.build_absolute_uri()
     articulo = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
@@ -20,15 +63,11 @@ def pro1(request):
     dato = [articulo,articulo1, articulo2]
     return render(request, 'index.html',{ 'rutas':url, 'datos':dato})
 
-
 def articulo(request, model, tipo):
     datos_articulo = model.objects.filter(producto=tipo)
     dato = tipo.lower()
     return render(request,'cel.html', {'datos':dato,'datos_articulos':datos_articulo})
-def desc_arti(request,model, tipo):
-    desc_dato = model.objects.filter(modelo=tipo)
-    dato = tipo
-    return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
+
 ########################################
 @login_required
 def carrito(request):

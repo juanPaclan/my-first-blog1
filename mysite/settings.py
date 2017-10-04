@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 #    'allauth.account',
     'rest_auth.registration',
     'blog',
+    'book',
     'prueba',
     'proyecto1',
     'biblioteca',

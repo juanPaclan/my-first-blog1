@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>listas</title>
+  </head>
+  <body>
+    <h1> datos </h1>
+    <ul>
+      {%  for  x  in  object_list  %}
+          <li> {{  x.name  }} </li>
+          <li> {{  x.city  }} </li>
+      {%  empty  %}
+          <li> No hay artículos todavía. </li>
+      {%  endfor  %}
+    </ul>
+  </body>
+</html>
