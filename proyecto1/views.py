@@ -1,5 +1,13 @@
 #nuevo
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
+from django.views.generic.edit import CreateView, FormView
+from django.core.urlresolvers import reverse
+#login
+from django.http.response import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+
 #antes
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
@@ -40,14 +48,36 @@ class ArticulosListView(ListView):
         context['datos'] = self.kwargs['tipo']
         return context
 
-class ArticulosDetailView(DetailView):
-    #model: Articulo
+class ArticulosDetailView(ArticulosListView, ListView ):
+    """Muestra el detalle de los articulos recibiendo el tipo de articulo o categoria """
+    model = Articulo
     context_object_name = "desc_datos"
     template_name = "cel-desc.html"
-    def get_object(self):
-        object= super(ArticulosDetailView, self).get_object()
-        print(object)
-        return object
+    def get_queryset(self, *args, **kwargs):
+        return Articulo.objects.filter(modelo= self.kwargs['tipo'])
+
+class DetalleCliente(DetailView):
+    model= Cliente
+    template_name = "cli-date.html"
+
+class ClienteNuevo(CreateView):
+    form_class = CliForm
+    template_name = "registro.html"
+
+class Login(FormView):
+
+    template_name= 'login.html'
+    form_class = AuthenticationForm
+    success_url =  reverse_lazy("index")
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return super(Login, self).dispatch(request, *args, **kwargs)
+    # def form_valid(self, form):
+    #     login(self.request, form.get_user())
+    #     return super(Login, self).form_valid(form)
+
 # Create your views here.
 def desc_arti(request,model, tipo):
     desc_dato = model.objects.filter(modelo=tipo)

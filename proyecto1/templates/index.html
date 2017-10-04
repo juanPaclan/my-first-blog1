@@ -11,7 +11,7 @@
   <div class="formaR">
     {% for x in dato%}
     <figure>
-      <a href="{% url 'desc_arti' tipo=x.modelo %}">
+      <a href="{% url 'detalle' tipo=x.modelo %}">
       <img src="../../../media/{{x.imagen}}" id="img" />
     </a>
     </figure>
@@ -36,7 +36,7 @@
         <b id="textnota">Nesecitas una <em>COMPUTADORA</em> aqui encontraras las mejores ofertas</b>
       </blockquote>
     </a>
-    <a class="caja1" href="{% url 'articulo' tipo='COMPUTADORA' %}">
+    <a class="caja1" href="{% url 'articulo' tipo='CELULAR' %}">
       <blockquote id="nota">
         <b id="textnota">Nesecitas un <em>celular</em> aqui tenemos las mejores ofertas</b>
       </blockquote>

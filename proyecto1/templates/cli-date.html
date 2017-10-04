@@ -3,7 +3,7 @@
 {% block url%}
 <a id="menu" href="{% url 'index' %}">Inicio</a>
 {% endblock %}
-{% block title %} Datos del Usuario: {{nombres}}  {% endblock %}
+{% block title %} Datos de Usuario  {% endblock %}
 {% block content %}
 
 <div class="muestraE">
@@ -11,11 +11,11 @@
   <section class="section">
 
 
-      <h1 class="formato">Nombre: {{datos.nombre}} {{datos.apellidos}} </h1>
-      <h3 class="formato"><b>Usuario:</b> {{datos.usuario}} </h3>
-      <h3 class="formato"><b>Direccion:</b> {{datos.direccion}} </h3>
-      <h3 class="formato"><b> Telefono:</b>{{datos.telefono}} </h3>
-      <h3 class="formato"><b> E-mail:</b>{{datos.email}} </h3>
+      <h1 class="formato">Nombre: {{object.nombre}} {{object.apellidos}} </h1>
+      <h3 class="formato"><b>Usuario:</b> {{object.usuario}} </h3>
+      <h3 class="formato"><b>Direccion:</b> {{object.direccion}} </h3>
+      <h3 class="formato"><b> Telefono:</b>{{object.telefono}} </h3>
+      <h3 class="formato"><b> E-mail:</b>{{object.email}} </h3>
 
 
   </section>

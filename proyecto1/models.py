@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 PRODUCTO_CHOICES = (('COMPUTADORA','Computadora'),('CELULAR','Celular'),('TABLET','Tablet'))
@@ -27,6 +28,9 @@ class Cliente(models.Model):
 
     class Meta:
         ordering = ['nombre']
+    def get_absolute_url(self):
+        view_name = "cli_deta"
+        return reverse(view_name, kwargs={'pk': self.id})
 
     def __str__(self):
         return '%s %s %s %s %s' % (self.usuario,self.password, self.nombre, self.apellidos, self.email)
