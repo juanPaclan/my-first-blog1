@@ -17,7 +17,7 @@
       {%if request.user.is_authenticated %}
         <a id="menu" href="{% url 'logout_view'%}">Cerrar S</a>
         <a id="menu" href="{% url 'carrito' usuario=user.username %}">Compras</a>
-        
+        <a id="menu" href="{% url 'index' %}">Inicio</a>
       {% else %}
         {% ifnotequal request.build_absolute_uri 'http://127.0.0.1:8000/login/'%}
           <a id="menu" href="{% url 'login' %}">Login</a>
@@ -39,23 +39,21 @@
           <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
         {% endifequal %}
         {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/COMPUTADORA/'%}
-          <a id="menu" href="{% url 'index' %}">Inicio</a>
           <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>
           <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
         {% endifequal %}
         {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/CELULAR/'%}
-          <a id="menu" href="{% url 'index' %}">Inicio</a>
           <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
           <a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
         {% endifequal %}
         {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/producto/TABLET/'%}
-          <a id="menu" href="{% url 'index' %}">Inicio</a>
+        
           <a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
           <a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>
         {% endifequal %}
-        {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/compras/'%}
+        <!-- {%ifequal request.build_absolute_uri 'http://127.0.0.1:8000/compras/'%}
           <a id="menu" href="{% url 'index' %}">Inicio</a>
-        {% endifequal %}
+        {% endifequal %} -->
       {% block url %}{% endblock %}
 
     </nav>

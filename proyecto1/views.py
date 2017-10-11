@@ -37,7 +37,7 @@ class IndexListView(ListView):
 
 #vista de articulos
 class ArticulosListView(ListView):
-    """Muestra las plantillas de los articulos"""
+    """Muestra las plantillas de los articulos segun su categoria """
     model= Articulo
     context_object_name = "datos_articulos"
     template_name = "cel.html"
@@ -49,7 +49,7 @@ class ArticulosListView(ListView):
         return context
 
 class VentasListView(ListView):
-    """Muestra las ventas de los articulos """
+    """Muestra las ventas de los articulos (carrito de compras)"""
     model= Venta
     context_object_name = "datos_carritos"
     template_name = "compras.html"
@@ -78,18 +78,19 @@ class ArticulosDetailView(ArticulosListView, ListView ):
         return Articulo.objects.filter(modelo= self.kwargs['tipo'])
 
 class DetalleCliente(DetailView):
+    """ Muestra los datos del cliente despues de crear un registro """
     model= Cliente
     template_name = "cli-date.html"
 #problemas de creacion de usuarios
 class ClienteNuevo(CreateView):
+    """ Esta clase crea los usuarios en la tabla cliente """
     form_class = CliForm
     template_name = "registro.html"
 
     def get_queryset(self, *args, **kwargs):
         user= User.objects.create_user(username=self.kwargs['usuario'], email=self.kwargs['email'], password=self.kwargs['password'])
-        user.save()
         print(self.kwargs['usuario'], email=self.kwargs['email'], password=self.kwargs['password'])
-        return get_queryset
+        return user.save()
 
 def cliente_new(request):
     if request.method == "POST":
@@ -106,11 +107,44 @@ def cliente_new(request):
 
 #problemas para la actualizacion de los datos de los usuarios
 class ClenteUpdate(UpdateView):
+    """ esta clase aptualiza losdatos del cliente en el boton del usuario del index """
     model = Cliente
     fields = ['usuario', 'password', 'nombre', 'apellidos', 'direccion', 'telefono', 'email']
     template_name= "registro-update.html"
     # def get_queryset(self, *args, **kwargs):
     #     return Cliente.objects.filter(usuario= self.kwargs['users'])
+
+class CompraArticulo(CreateView):
+    model = Venta
+    fields = ['cliente', 'articulos']
+    success_url =  reverse_lazy("index")
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(AuthorCreate, self).form_valid(form)
+    def queryset(self,request, *args, **kwargs):
+        producto= Articulo.objects.get(id=self.kwargs['id_prod'])
+        usuario =Cliente.objects.get(usuario=self.request.user)
+        venta= Venta(cliente=usuario)
+        venta.save()
+        venta.articulos.add(producto)
+        venta.save()
+        return venta.save()
+
+@login_required
+def compra_articulo(request, id_prod):
+    if request.user.is_authenticated:
+        fecha = datetime.now()
+        formato = "%d/%m/%y"
+        dato= fecha.strftime(formato)
+        producto= Articulo.objects.get(id=id_prod)
+        usuario =Cliente.objects.get(usuario=request.user)
+        venta = Venta(fecha=fecha, cliente=usuario)#p)
+        venta.save()
+        venta.articulos.add(producto)
+        venta.save()
+        print(venta)
+        return redirect('index')
 
 class LoginView(FormView):
     form_class = AuthenticationForm
@@ -132,20 +166,7 @@ class LoginView(FormView):
 #     return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
 #
 
-@login_required
-def compra_articulo(request, id_prod):
-    if request.user.is_authenticated:
-        fecha = datetime.now()
-        formato = "%d/%m/%y"
-        dato= fecha.strftime(formato)
-        producto= Articulo.objects.get(id=id_prod)
-        usuario =Cliente.objects.get(usuario=request.user)
-        venta = Venta(fecha=fecha, cliente=usuario)#p)
-        venta.save()
-        venta.articulos.add(producto)
-        venta.save()
-        print(venta)
-    return redirect('index')
+
 def logout_view(request):
     logout(request)
     return redirect('index')
