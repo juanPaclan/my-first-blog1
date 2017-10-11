@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block url%}
+<a id="menu" href="{% url 'index' %}">Inicio</a>
+{% endblock %}
+{% block title %} Datos del Usuario {% endblock %}
+{% block content %}
+
+  <div class="elemento2">
+  <form method="post" onsubmit="submit(e)" >{% csrf_token %}
+    <center>
+      {{ form.as_p}}
+    </center>
+
+    <button type="submit"> Update</button>
+  </form>
+</div>
+<script type="text/javascript">
+  var n = document.getElementById('id_usuario');
+  var f = document.getElementsByTagName('form')[0];
+    var submit = function(e){
+      e.preventDefault();
+      var er = ^[A-Za-z0-9]{5,20}$;
+      var rta = er.test(n.value);
+      if(rta == false){
+        alert('usuario no valido');
+        return false;
+      }
+      return false;
+    }
+</script>
+{% endblock %}

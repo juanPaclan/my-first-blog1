@@ -1,6 +1,6 @@
 #nuevo
 from django.views.generic import ListView, DetailView, View
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.core.urlresolvers import reverse
 #login
 from django.http.response import HttpResponseRedirect
@@ -48,6 +48,27 @@ class ArticulosListView(ListView):
         context['datos'] = self.kwargs['tipo']
         return context
 
+class VentasListView(ListView):
+    """Muestra las ventas de los articulos """
+    model= Venta
+    context_object_name = "datos_carritos"
+    template_name = "compras.html"
+    def get_queryset(self, *args, **kwargs):
+        cliente_datos= Cliente.objects.get(usuario= self.kwargs['usuario'])
+        return Venta.objects.filter(cliente= cliente_datos)
+    def get_context_data(self, *args, **kwargs):
+        context= super(VentasListView, self).get_context_data(**kwargs)
+        cliente_datos= Cliente.objects.get(usuario= self.kwargs['usuario'])
+        ventas= Venta.objects.filter(cliente= cliente_datos)
+        total=0
+        for datos in ventas:
+            for precio_totales in datos.articulos.all():
+                total+=precio_totales.precio
+        context['total_vetas'] = ventas.count
+        context['totales'] = total
+        return context
+
+
 class ArticulosDetailView(ArticulosListView, ListView ):
     """Muestra el detalle de los articulos recibiendo el tipo de articulo o categoria """
     model = Articulo
@@ -59,57 +80,57 @@ class ArticulosDetailView(ArticulosListView, ListView ):
 class DetalleCliente(DetailView):
     model= Cliente
     template_name = "cli-date.html"
-
+#problemas de creacion de usuarios
 class ClienteNuevo(CreateView):
     form_class = CliForm
     template_name = "registro.html"
 
-class Login(FormView):
+    def get_queryset(self, *args, **kwargs):
+        user= User.objects.create_user(username=self.kwargs['usuario'], email=self.kwargs['email'], password=self.kwargs['password'])
+        user.save()
+        print(self.kwargs['usuario'], email=self.kwargs['email'], password=self.kwargs['password'])
+        return get_queryset
 
-    template_name= 'login.html'
+def cliente_new(request):
+    if request.method == "POST":
+        form = CliForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit= False)
+            post.save()
+            user= User.objects.create_user(username=post.usuario, email=post.email, password=post.password)
+            user.save()
+            return redirect('cli_deta', pk=post.pk)
+    else:
+        form = CliForm()
+        return render(request, 'registro.html', {'form': form})
+
+#problemas para la actualizacion de los datos de los usuarios
+class ClenteUpdate(UpdateView):
+    model = Cliente
+    fields = ['usuario', 'password', 'nombre', 'apellidos', 'direccion', 'telefono', 'email']
+    template_name= "registro-update.html"
+    # def get_queryset(self, *args, **kwargs):
+    #     return Cliente.objects.filter(usuario= self.kwargs['users'])
+
+class LoginView(FormView):
     form_class = AuthenticationForm
+    template_name= 'login.html'
     success_url =  reverse_lazy("index")
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return super(Login, self).dispatch(request, *args, **kwargs)
-    # def form_valid(self, form):
-    #     login(self.request, form.get_user())
-    #     return super(Login, self).form_valid(form)
+            return super(LoginView, self).dispatch(request, *args, **kwargs)
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        return super(LoginView, self).form_valid(form)
 
 # Create your views here.
-def desc_arti(request,model, tipo):
-    desc_dato = model.objects.filter(modelo=tipo)
-    dato = tipo
-    return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
-
-
-def pro1(request):
-    url = request.build_absolute_uri()
-    articulo = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
-    articulo1 = Articulo.objects.filter(producto='CELULAR').order_by('?')[:4]
-    articulo2 = Articulo.objects.filter(producto='TABLET').order_by('?')[:4]
-    dato = [articulo,articulo1, articulo2]
-    return render(request, 'index.html',{ 'rutas':url, 'datos':dato})
-
-def articulo(request, model, tipo):
-    datos_articulo = model.objects.filter(producto=tipo)
-    dato = tipo.lower()
-    return render(request,'cel.html', {'datos':dato,'datos_articulos':datos_articulo})
-
-########################################
-@login_required
-def carrito(request):
-    if request.user.is_authenticated:
-        usuario= Cliente.objects.get(usuario=request.user)
-        datos_carrito = Venta.objects.filter(cliente=usuario)
-        total_venta= datos_carrito.count
-        total=0
-        for datos in datos_carrito:
-            for precio_totales in datos.articulos.all():
-                total+=precio_totales.precio
-        return render(request, 'compras.html',{ 'totales':total,'total_vetas':total_venta ,'datos_carritos': datos_carrito} )
+# def desc_arti(request,model, tipo):
+#     desc_dato = model.objects.filter(modelo=tipo)
+#     dato = tipo
+#     return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
+#
 
 @login_required
 def compra_articulo(request, id_prod):
@@ -124,10 +145,10 @@ def compra_articulo(request, id_prod):
         venta.articulos.add(producto)
         venta.save()
         print(venta)
-    return render(request, 'index.html' )
+    return redirect('index')
 def logout_view(request):
     logout(request)
-    return render(request, 'index.html' )
+    return redirect('index')
 def login(request):
     form = LoginForm(request.POST or None)
     if form.is_valid():
@@ -155,18 +176,6 @@ def cliente_detalle(request, pk):
     nombre = dato.usuario
     return render(request, 'cli-date.html', { 'nombres':nombre ,'datos' : dato})
 
-def cliente_new(request):
-    if request.method == "POST":
-        form = CliForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit= False)
-            post.save()
-            user= User.objects.create_user(username=post.usuario, email=post.email, password=post.password)
-            user.save()
-            return redirect('cli_deta', pk=post.pk)
-    else:
-        form = CliForm()
-    return render(request, 'registro.html', {'form': form})
 
 def cli_editar(request, users):
     post = get_object_or_404(Cliente, usuario=users)
