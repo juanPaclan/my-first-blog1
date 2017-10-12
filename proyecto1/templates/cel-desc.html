@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% block url%}
 <a id="menu" href="{% url 'index' %}">Inicio</a>
+<a id="menu" href="{% url 'articulo' tipo='COMPUTADORA' %}">Computadoras</a>
+<a id="menu" href="{% url 'articulo' tipo='CELULAR' %}">Celulares</a>
+<a id="menu" href="{% url 'articulo' tipo='TABLET' %}">Tables</a>
 {% endblock %}
 {% block title %} {{datos}} {% endblock %}
 {% block content %}

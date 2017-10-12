@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block url%}
+<a id="menu" href="{% url 'index' %}">Inicio</a>
+
+{% endblock %}
 {% block title %}
   Sus compras
 {% endblock %}
@@ -27,6 +31,7 @@
         <a id="boton" >{{x.precio}}</a>
   </div>
   {%endfor%}
+    
 </div>
 {%endfor%}
 </div>

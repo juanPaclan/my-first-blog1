@@ -1,12 +1,11 @@
 #nuevo
-from django.views.generic import ListView, DetailView, View
+from django.views.generic import ListView, DetailView, View, DeleteView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.core.urlresolvers import reverse
 #login
 from django.http.response import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
 
 #antes
 from django.shortcuts import render, get_object_or_404
@@ -68,6 +67,9 @@ class VentasListView(ListView):
         context['totales'] = total
         return context
 
+# class VentaDelete(DeleteView):
+#     model= Venta
+#     success_url = reverse_lazy('carrito')
 
 class ArticulosDetailView(ArticulosListView, ListView ):
     """Muestra el detalle de los articulos recibiendo el tipo de articulo o categoria """
@@ -86,7 +88,13 @@ class ClienteNuevo(CreateView):
     """ Esta clase crea los usuarios en la tabla cliente """
     form_class = CliForm
     template_name = "registro.html"
-
+    # def form_valid(self,request, *args, **kwargs):
+    #     form = request.CliForm
+    #     post = form.save(commit= False)
+    #     post.save()
+    #     user= User.objects.create_user(username=post.usuario, email=post.email, password=post.password)
+    #     user.save()
+    #     return super(LoginView, self).form_valid(form)
     def get_queryset(self, *args, **kwargs):
         user= User.objects.create_user(username=self.kwargs['usuario'], email=self.kwargs['email'], password=self.kwargs['password'])
         print(self.kwargs['usuario'], email=self.kwargs['email'], password=self.kwargs['password'])
@@ -111,25 +119,6 @@ class ClenteUpdate(UpdateView):
     model = Cliente
     fields = ['usuario', 'password', 'nombre', 'apellidos', 'direccion', 'telefono', 'email']
     template_name= "registro-update.html"
-    # def get_queryset(self, *args, **kwargs):
-    #     return Cliente.objects.filter(usuario= self.kwargs['users'])
-
-class CompraArticulo(CreateView):
-    model = Venta
-    fields = ['cliente', 'articulos']
-    success_url =  reverse_lazy("index")
-
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super(AuthorCreate, self).form_valid(form)
-    def queryset(self,request, *args, **kwargs):
-        producto= Articulo.objects.get(id=self.kwargs['id_prod'])
-        usuario =Cliente.objects.get(usuario=self.request.user)
-        venta= Venta(cliente=usuario)
-        venta.save()
-        venta.articulos.add(producto)
-        venta.save()
-        return venta.save()
 
 @login_required
 def compra_articulo(request, id_prod):
@@ -156,47 +145,13 @@ class LoginView(FormView):
         else:
             return super(LoginView, self).dispatch(request, *args, **kwargs)
     def form_valid(self, form):
-        login(self.request, form.get_user())
+        django_login(self.request, form.get_user())
         return super(LoginView, self).form_valid(form)
-
-# Create your views here.
-# def desc_arti(request,model, tipo):
-#     desc_dato = model.objects.filter(modelo=tipo)
-#     dato = tipo
-#     return render(request, 'cel-desc.html', {'datos':dato, 'desc_datos': desc_dato})
-#
 
 
 def logout_view(request):
     logout(request)
     return redirect('index')
-def login(request):
-    form = LoginForm(request.POST or None)
-    if form.is_valid():
-        data = form.cleaned_data
-        nombre_usuario = data.get("name_user")
-        password_usuario = data.get("password_user")
-        acceso= authenticate(username=nombre_usuario, password=password_usuario)
-        if acceso is not None and acceso.is_active:
-        #    users = User.objects.filter(username = nombre_usuario)
-        #    token, created = Token.objects.get_or_create(user=users)
-        #    print(users, token.key)
-        #    sesion = request.session['member_id']=token.key
-            django_login(request, acceso)
-            return render(request, 'index.html', {'accesos':acceso})
-            #return redirect('logout_view')
-        else:
-            return HttpResponse("Usuario /password incorrectos.")
-    else:
-        form = LoginForm()
-    var = { "form":form}
-    return render(request, 'login.html', var)
-
-def cliente_detalle(request, pk):
-    dato = get_object_or_404(Cliente, pk =pk)
-    nombre = dato.usuario
-    return render(request, 'cli-date.html', { 'nombres':nombre ,'datos' : dato})
-
 
 def cli_editar(request, users):
     post = get_object_or_404(Cliente, usuario=users)
